@@ -1,0 +1,65 @@
+---
+title: "R语言基础"
+subtitle: "The Elements of R Language"
+author: "黄湘云"
+institute: "中国矿业大学(北京)"
+date: "2016年7月"
+fontsize: 10pt
+output: 
+  beamer_presentation: 
+    keep_tex: yes
+    pandoc_args: --latex-engine=xelatex
+    template: default.tex
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+# knit_theme$set("fruit")
+options(prompt=">")
+opts_chunk$set(size="scriptsize",echo=FALSE)
+```
+
+
+## car 包
+
+```{r,echo=FALSE}
+library(car)
+scatterplotMatrix(~mpg+disp+drat+wt,data=mtcars,
+                  spread=F,smoother.args=list(lty=2),
+                  main="Scatter Plot Matrix via car Package")
+```
+
+## ggplot2 包
+
+```{r}
+library(ggplot2)
+# You can also control other aesthetics
+mean_wt <- data.frame(cyl = c(4, 6, 8), wt = c(2.28, 3.11, 4.00))
+ggplot(mtcars, aes(mpg, wt, colour = wt)) +
+  geom_point() +
+  geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
+  facet_wrap(~ cyl)
+```
+
+
+## geom_abline
+
+```{r}
+library(ggplot2)
+p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
+# Fixed values
+p + geom_vline(xintercept = 5)
+```
+
+## xintercept
+
+```{r}
+p + geom_vline(xintercept = 1:5)
+```
+
+## yintercept
+
+```{r}
+p + geom_hline(yintercept = 20)
+```
+
